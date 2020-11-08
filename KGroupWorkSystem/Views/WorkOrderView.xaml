@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="KGroupWorkSystem.Views.WorkOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <StackPanel>
+            <Label Content="作業指示作成"/>
+            <Button Content="Start" Width="100" Command="{Binding StartButton}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

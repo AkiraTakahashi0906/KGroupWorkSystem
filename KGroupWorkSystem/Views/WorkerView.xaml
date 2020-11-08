@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="KGroupWorkSystem.Views.WorkerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <StackPanel>
+        <StackPanel>
+            <Label Content="作業者"/>
+                <Label Content="{Binding LabelContent.Value}"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Button Content="Worker1Start" Width="100" Command="{Binding Worker1StartButton}"/>
+                    <Button Content="Worker2Start" Width="100" Command="{Binding Worker2StartButton}"/>
+                    <Button Content="Worker3Start" Width="100" Command="{Binding Worker3StartButton}"/>
+                </StackPanel>
+                <Button Content="Next" Command="{Binding NextCommand}" />
+            </StackPanel>
+        <StackPanel>
+                <DataGrid  ItemsSource="{Binding WorkerWorkings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
+                  GridLinesVisibility="Vertical"
+                  VerticalGridLinesBrush="LightGray"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False" SelectionUnit="Cell" >
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSync}" Value="True">
+                                    <Setter Property="Background" Value="LightGreen" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                    <Setter Property="Background" Value="AliceBlue" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
+                        <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
+                        <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
+                        <DataGridTextColumn Header="同期" Binding="{Binding IsSync}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,17 @@
+﻿<Window x:Class="KGroupWorkSystem.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="600" Width="800">
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="作業指示作成" Width="100" Command="{Binding WorkOrderButton}"/>
+                <Button Content="指揮者" Width="100" Command="{Binding ConductorButton}"/>
+                <Button Content="作業者" Width="100" Command="{Binding WorkerButton}"/>
+            </StackPanel>
+            <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        </StackPanel>
+    </Grid>
+</Window>
