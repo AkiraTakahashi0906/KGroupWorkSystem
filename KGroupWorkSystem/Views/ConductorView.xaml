@@ -11,7 +11,10 @@
             <Button Content="Start" Width="100" Command="{Binding StartButton}"/>
         </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <DataGrid  ItemsSource="{Binding Worker1Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
+                <StackPanel>
+                    <Button Content="次へ" Width="100" Command="{Binding StartButton}" Margin="5"/>
+                    <Label Content="作業内容:"/>
+                    <DataGrid  ItemsSource="{Binding Worker1Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="LightGray"
                   CanUserAddRows="False"
@@ -29,13 +32,18 @@
                         </Style>
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
                         <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
                         <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
                         <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
                         <DataGridTextColumn Header="同期" Binding="{Binding IsSync}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <DataGrid  ItemsSource="{Binding Worker2Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
+                </StackPanel>
+                <StackPanel>
+                    <Button Content="次へ" Width="100" Command="{Binding StartButton}" Margin="5"/>
+                    <Label Content="作業内容:"/>
+                    <DataGrid  ItemsSource="{Binding Worker2Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="LightGray"
                   CanUserAddRows="False"
@@ -53,13 +61,18 @@
                         </Style>
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
                         <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
                         <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
                         <DataGridTextColumn Header="同期" Binding="{Binding IsSync}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <DataGrid  ItemsSource="{Binding Worker3Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
+                </StackPanel>
+                <StackPanel>
+                    <Button Content="次へ" Width="100" Command="{Binding StartButton}" Margin="5"/>
+                    <Label Content="作業内容:"/>
+                    <DataGrid  ItemsSource="{Binding Worker3Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="LightGray"
                   CanUserAddRows="False"
@@ -77,12 +90,14 @@
                         </Style>
                     </DataGrid.ItemContainerStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
                         <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
                         <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
                         <DataGridTextColumn Header="同期" Binding="{Binding IsSync}" />
                     </DataGrid.Columns>
                 </DataGrid>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>

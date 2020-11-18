@@ -20,7 +20,7 @@ namespace KGroupWorkSystem.BackgroundWorkers
 
         internal static void Start()
         {
-            _timer.Change(0, 10000);
+            _timer.Change(0, 2000);
         }
 
         internal static void Stop()

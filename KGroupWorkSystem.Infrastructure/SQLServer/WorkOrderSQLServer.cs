@@ -22,8 +22,10 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
             query.AppendLine("        ,[workId]");
             query.AppendLine("        ,[workerId]");
             query.AppendLine("        ,[workOpId]");
+            query.AppendLine("        ,[workTitle]");
             query.AppendLine("        ,[workName]");
             query.AppendLine("        ,[workDetails]");
+            query.AppendLine("        ,[caution]");
             query.AppendLine("        ,[isDone]");
             query.AppendLine("        ,[isSync]");
             query.AppendLine("from");
@@ -44,8 +46,10 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
                         Convert.ToInt32(reader["workId"]),
                         Convert.ToInt32(reader["workerId"]),
                         Convert.ToInt32(reader["workOpId"]),
+                        Convert.ToString(reader["workTitle"]),
                         Convert.ToString(reader["workName"]),
                         Convert.ToString(reader["workDetails"]),
+                        Convert.ToString(reader["caution"]),
                         Convert.ToBoolean(reader["isDone"]),
                         Convert.ToBoolean(reader["isSync"])));
                 });

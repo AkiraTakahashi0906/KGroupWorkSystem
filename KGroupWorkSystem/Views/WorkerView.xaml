@@ -28,7 +28,7 @@
                                     <Setter Property="Background" Value="LightGreen" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding IsDone}" Value="True">
-                                    <Setter Property="Background" Value="AliceBlue" />
+                                    <Setter Property="Background" Value="Cyan" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
