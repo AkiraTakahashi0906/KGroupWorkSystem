@@ -27,6 +27,9 @@
                                 <DataTrigger Binding="{Binding IsSync}" Value="True">
                                     <Setter Property="Background" Value="LightGreen" />
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                    <Setter Property="Background" Value="Red" />
+                                </DataTrigger>
                                 <DataTrigger Binding="{Binding IsDone}" Value="True">
                                     <Setter Property="Background" Value="Cyan" />
                                 </DataTrigger>

@@ -28,6 +28,7 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
             query.AppendLine("        ,[caution]");
             query.AppendLine("        ,[isDone]");
             query.AppendLine("        ,[isSync]");
+            query.AppendLine("        ,[isCurrent]");
             query.AppendLine("from");
             query.AppendLine("        [KGWS].[dbo].[Working]");
             //query.AppendLine("where");
@@ -51,7 +52,8 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
                         Convert.ToString(reader["workDetails"]),
                         Convert.ToString(reader["caution"]),
                         Convert.ToBoolean(reader["isDone"]),
-                        Convert.ToBoolean(reader["isSync"])));
+                        Convert.ToBoolean(reader["isSync"]),
+                        Convert.ToBoolean(reader["isCurrent"])));
                 });
             return list;
         }

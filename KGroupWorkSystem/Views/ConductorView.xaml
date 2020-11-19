@@ -13,7 +13,10 @@
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <Button Content="次へ" Width="100" Command="{Binding StartButton}" Margin="5"/>
-                    <Label Content="作業内容:"/>
+                    <Label Content="{Binding CurrentWorker1Workings.Value.Id}"/>
+                    <Label Content="{Binding CurrentWorker1Workings.Value.WorkTitle}"/>
+                    <Label Content="{Binding CurrentWorker1Workings.Value.WorkName}"/>
+                    <Label Content="{Binding CurrentWorker1Workings.Value.WorkDetails}"/>
                     <DataGrid  ItemsSource="{Binding Worker1Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="LightGray"
@@ -25,7 +28,10 @@
                                 <DataTrigger Binding="{Binding IsSync}" Value="True">
                                     <Setter Property="Background" Value="LightGreen" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                    <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                        <Setter Property="Background" Value="Red" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsDone}" Value="True">
                                     <Setter Property="Background" Value="Blue" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -42,7 +48,10 @@
                 </StackPanel>
                 <StackPanel>
                     <Button Content="次へ" Width="100" Command="{Binding StartButton}" Margin="5"/>
-                    <Label Content="作業内容:"/>
+                    <Label Content="{Binding CurrentWorker2Workings.Value.Id}"/>
+                    <Label Content="{Binding CurrentWorker2Workings.Value.WorkTitle}"/>
+                    <Label Content="{Binding CurrentWorker2Workings.Value.WorkName}"/>
+                    <Label Content="{Binding CurrentWorker2Workings.Value.WorkDetails}"/>
                     <DataGrid  ItemsSource="{Binding Worker2Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="LightGray"
@@ -54,7 +63,10 @@
                                 <DataTrigger Binding="{Binding IsSync}" Value="True">
                                     <Setter Property="Background" Value="LightGreen" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                    <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                        <Setter Property="Background" Value="Red" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsDone}" Value="True">
                                     <Setter Property="Background" Value="Blue" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -71,7 +83,10 @@
                 </StackPanel>
                 <StackPanel>
                     <Button Content="次へ" Width="100" Command="{Binding StartButton}" Margin="5"/>
-                    <Label Content="作業内容:"/>
+                    <Label Content="{Binding CurrentWorker3Workings.Value.Id}"/>
+                    <Label Content="{Binding CurrentWorker3Workings.Value.WorkTitle}"/>
+                    <Label Content="{Binding CurrentWorker3Workings.Value.WorkName}"/>
+                    <Label Content="{Binding CurrentWorker3Workings.Value.WorkDetails}"/>
                     <DataGrid  ItemsSource="{Binding Worker3Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="LightGray"
@@ -83,7 +98,10 @@
                                 <DataTrigger Binding="{Binding IsSync}" Value="True">
                                     <Setter Property="Background" Value="LightGreen" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding IsDone}" Value="True">
+                                    <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                                        <Setter Property="Background" Value="Red" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsDone}" Value="True">
                                     <Setter Property="Background" Value="Blue" />
                                 </DataTrigger>
                             </Style.Triggers>

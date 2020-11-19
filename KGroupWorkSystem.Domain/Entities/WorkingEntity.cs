@@ -17,7 +17,8 @@ namespace KGroupWorkSystem.Domain.Entities
                                         string workDetails,
                                         string caution,
                                         bool isDone,
-                                        bool isSync)
+                                        bool isSync,
+                                        bool isCurrent)
         {
             Id = id;
             WorkId = workId;
@@ -29,6 +30,7 @@ namespace KGroupWorkSystem.Domain.Entities
             Caution = caution;
             IsDone = isDone;
             IsSync = isSync;
+            IsCurrent = isCurrent;
         }
         public int Id { get;}
         public int WorkId { get; }
@@ -40,15 +42,6 @@ namespace KGroupWorkSystem.Domain.Entities
         public string Caution { get; }
         public bool IsDone { get; }
         public bool IsSync { get; }
-
-        public bool IsCurrentId
-        {
-            get
-            {
-                //if (NeedQuantity == ReceivedQuantity) return true;
-                return false;
-            }
-        }
-
+        public bool IsCurrent { get; }
     }
 }
