@@ -93,6 +93,22 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
             SQLServerHelper.Execute(query.ToString(), parameters.ToArray());
         }
 
+        public void UpdateWorkingData(WorkingEntity workingEntity)
+        {
+            StringBuilder query = new StringBuilder();
+            var parameters = new List<SqlParameter>();
+
+            query.AppendLine("update");
+            query.AppendLine("        [KGWS].[dbo].[Working]");
+            query.AppendLine("set [isDone]='true'");
+            query.AppendLine("where");
+            query.AppendLine("        [id]=@id");
+
+            parameters.Clear();
+            parameters.Add(new SqlParameter("@id", workingEntity.Id));
+            SQLServerHelper.Execute(query.ToString(), parameters.ToArray());
+        }
+
         private int GetWorkingId(int workId, int workerId)
         {
             StringBuilder query = new StringBuilder();

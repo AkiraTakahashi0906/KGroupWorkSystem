@@ -12,7 +12,7 @@
         </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <Button Content="次へ" Width="100" Command="{Binding StartButton}" Margin="5"/>
+                    <Button Content="次へ" Width="100" Command="{Binding Worker1UpdateCommand}" Margin="5"/>
                     <Label Content="{Binding CurrentWorker1Workings.Value.Id}"/>
                     <Label Content="{Binding CurrentWorker1Workings.Value.WorkTitle}"/>
                     <Label Content="{Binding CurrentWorker1Workings.Value.WorkName}"/>
@@ -47,7 +47,7 @@
                 </DataGrid>
                 </StackPanel>
                 <StackPanel>
-                    <Button Content="次へ" Width="100" Command="{Binding StartButton}" Margin="5"/>
+                    <Button Content="次へ" Width="100" Command="{Binding Worker2UpdateCommand}" Margin="5"/>
                     <Label Content="{Binding CurrentWorker2Workings.Value.Id}"/>
                     <Label Content="{Binding CurrentWorker2Workings.Value.WorkTitle}"/>
                     <Label Content="{Binding CurrentWorker2Workings.Value.WorkName}"/>
@@ -82,7 +82,7 @@
                 </DataGrid>
                 </StackPanel>
                 <StackPanel>
-                    <Button Content="次へ" Width="100" Command="{Binding StartButton}" Margin="5"/>
+                    <Button Content="次へ" Width="100" Command="{Binding Worker3UpdateCommand}" Margin="5" />
                     <Label Content="{Binding CurrentWorker3Workings.Value.Id}"/>
                     <Label Content="{Binding CurrentWorker3Workings.Value.WorkTitle}"/>
                     <Label Content="{Binding CurrentWorker3Workings.Value.WorkName}"/>

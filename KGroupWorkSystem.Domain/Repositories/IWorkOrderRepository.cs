@@ -13,5 +13,6 @@ namespace KGroupWorkSystem.Domain.Repositories
         void Registration();
         void ToNext(int workId, int workerId);
         List<WorkingEntity> GetWorkingData();
+        void UpdateWorkingData(WorkingEntity workingEntity);
     }
 }
