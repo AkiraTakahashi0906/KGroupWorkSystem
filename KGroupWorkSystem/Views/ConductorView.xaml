@@ -12,7 +12,10 @@
         </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <Button Content="次へ" Width="100" Command="{Binding Worker1UpdateCommand}" Margin="5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Worker1StatusText.Value}"/>
+                        <Button Content="次へ" Width="100" Command="{Binding Worker1UpdateCommand}" Margin="5"/>
+                    </StackPanel>
                     <Label Content="{Binding CurrentWorker1Workings.Value.Id}"/>
                     <Label Content="{Binding CurrentWorker1Workings.Value.WorkTitle}"/>
                     <Label Content="{Binding CurrentWorker1Workings.Value.WorkName}"/>

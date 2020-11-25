@@ -93,6 +93,42 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
             SQLServerHelper.Execute(query.ToString(), parameters.ToArray());
         }
 
+        public void UpdateCurrentWorkingData(WorkingEntity workingEntity)
+        {
+            StringBuilder query = new StringBuilder();
+            var parameters = new List<SqlParameter>();
+
+            query.AppendLine("update");
+            query.AppendLine("        [KGWS].[dbo].[Working]");
+            query.AppendLine("set [isCurrent]='false'");
+            query.AppendLine("where");
+            query.AppendLine("        [workId]=@workId");
+            query.AppendLine("and");
+            query.AppendLine("        [workerId]=@workerId");
+
+            parameters.Clear();
+            parameters.Add(new SqlParameter("@workId", workingEntity.WorkId));
+            parameters.Add(new SqlParameter("@workerId", workingEntity.WorkerId));
+            SQLServerHelper.Execute(query.ToString(), parameters.ToArray());
+
+            query.Clear();
+            query.AppendLine("update");
+            query.AppendLine("        [KGWS].[dbo].[Working]");
+            query.AppendLine("set [isCurrent]='true'");
+            query.AppendLine("where");
+            query.AppendLine("        [workId]=@workId");
+            query.AppendLine("and");
+            query.AppendLine("        [workerId]=@workerId");
+            query.AppendLine("and");
+            query.AppendLine("        [workOpId]=@workOpId");
+
+            parameters.Clear();
+            parameters.Add(new SqlParameter("@workId", workingEntity.WorkId));
+            parameters.Add(new SqlParameter("@workerId", workingEntity.WorkerId));
+            parameters.Add(new SqlParameter("@workOpId", workingEntity.WorkOpId));
+            SQLServerHelper.Execute(query.ToString(), parameters.ToArray());
+        }
+
         public void UpdateWorkingData(WorkingEntity workingEntity)
         {
             StringBuilder query = new StringBuilder();

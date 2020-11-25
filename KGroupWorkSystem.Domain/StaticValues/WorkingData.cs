@@ -28,5 +28,13 @@ namespace KGroupWorkSystem.Domain.StaticValues
                 return _entities.Where(x => x.WorkId == workId && x.WorkerId == workerId).ToList();
             }
         }
+
+        public static List<WorkingEntity> GetWorkings(int workId)
+        {
+            lock (((ICollection)_entities).SyncRoot)
+            {
+                return _entities.Where(x => x.WorkId == workId).ToList();
+            }
+        }
     }
 }
