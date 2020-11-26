@@ -20,7 +20,6 @@ namespace KGroupWorkSystem.ViewModels
         public ConductorViewModel()
         {
             _workOrderRepository = new WorkOrderSQLServer();
-            StartButton.Subscribe(_ => StartButtonExecute());
 
             observableTimer = Observable.Timer(TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(1))
                .Subscribe(_ =>
@@ -30,9 +29,9 @@ namespace KGroupWorkSystem.ViewModels
                    Worker1Workings.Value = new ObservableCollection<WorkingEntity>(WorkingData.GetWorkings(WorkId.Value, 1));
                    Worker2Workings.Value = new ObservableCollection<WorkingEntity>(WorkingData.GetWorkings(WorkId.Value, 2));
                    Worker3Workings.Value = new ObservableCollection<WorkingEntity>(WorkingData.GetWorkings(WorkId.Value, 3));
-                   CurrentWorker1Workings.Value = Worker1Workings.Value.ToList().Where(x=> x.IsDone == false).OrderBy(x => x.WorkId).FirstOrDefault();
-                   CurrentWorker2Workings.Value = Worker2Workings.Value.ToList().Where(x => x.IsDone == false).OrderBy(x => x.WorkId).FirstOrDefault();
-                   CurrentWorker3Workings.Value = Worker3Workings.Value.ToList().Where(x => x.IsDone == false).OrderBy(x => x.WorkId).FirstOrDefault();
+                   CurrentWorker1Workings.Value = Worker1Workings.Value.ToList().Where(x=> x.IsDone == false).OrderBy(x => x.WorkTitleId).FirstOrDefault();
+                   CurrentWorker2Workings.Value = Worker2Workings.Value.ToList().Where(x => x.IsDone == false).OrderBy(x => x.WorkTitleId).FirstOrDefault();
+                   CurrentWorker3Workings.Value = Worker3Workings.Value.ToList().Where(x => x.IsDone == false).OrderBy(x => x.WorkTitleId).FirstOrDefault();
                    WorkerIsWaitUpdate();
                    CurrentUpdate();
                });
@@ -54,13 +53,12 @@ namespace KGroupWorkSystem.ViewModels
         public ReactivePropertySlim<WorkingEntity> CurrentWorker1Workings { get; } = new ReactivePropertySlim<WorkingEntity>();
         public ReactivePropertySlim<WorkingEntity> CurrentWorker2Workings { get; } = new ReactivePropertySlim<WorkingEntity>();
         public ReactivePropertySlim<WorkingEntity> CurrentWorker3Workings { get; } = new ReactivePropertySlim<WorkingEntity>();
-
         public ReactivePropertySlim<string> Worker1StatusText { get; } = new ReactivePropertySlim<string>("");
-
+        public ReactivePropertySlim<string> Worker2StatusText { get; } = new ReactivePropertySlim<string>("");
+        public ReactivePropertySlim<string> Worker3StatusText { get; } = new ReactivePropertySlim<string>("");
         public ReactiveCommand Worker1UpdateCommand { get; } = new ReactiveCommand();
         public ReactiveCommand Worker2UpdateCommand { get; } = new ReactiveCommand();
         public ReactiveCommand Worker3UpdateCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand StartButton { get; } = new ReactiveCommand();
         public ReactiveProperty<bool> Worker1IsWait { get; } = new ReactiveProperty<bool>(false);
         public ReactiveProperty<bool> Worker2IsWait { get; } = new ReactiveProperty<bool>(false);
         public ReactiveProperty<bool> Worker3IsWait { get; } = new ReactiveProperty<bool>(false);
@@ -77,7 +75,23 @@ namespace KGroupWorkSystem.ViewModels
                 Worker1StatusText.Value = "作業中";
             }
             Worker2IsWait.Value = IsWait(CurrentWorker2Workings.Value);
+            if (Worker2IsWait.Value)
+            {
+                Worker2StatusText.Value = "同期待ち";
+            }
+            else
+            {
+                Worker2StatusText.Value = "作業中";
+            }
             Worker3IsWait.Value = IsWait(CurrentWorker3Workings.Value);
+            if (Worker3IsWait.Value)
+            {
+                Worker3StatusText.Value = "同期待ち";
+            }
+            else
+            {
+                Worker3StatusText.Value = "作業中";
+            }
         }
 
         private void CurrentUpdate()
@@ -89,20 +103,23 @@ namespace KGroupWorkSystem.ViewModels
 
         private bool IsWait(WorkingEntity workingEntity)
         {
-            var count = Workings.Value.ToList().Where(x => x.WorkOpId == workingEntity.WorkOpId - 1
-                                                                                  && x.IsSync==true && x.IsDone==false).Count();
-            if (count == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+            var countIsSync = Workings.Value.ToList().Where(x => x.WorkOpId == workingEntity.WorkOpId - 1
+                                                                      && x.IsSync == true && x.IsDone == true && x.WorkerId== workingEntity.WorkerId).Count();
 
-        private void StartButtonExecute()
-        {
+            if (countIsSync != 0)
+            {
+                var count = Workings.Value.ToList().Where(x => x.WorkOpId == workingEntity.WorkOpId - 1
+                                                          && x.IsSync == true && x.IsDone == false).Count();
+                if (count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void Worker1UpdateExecute()

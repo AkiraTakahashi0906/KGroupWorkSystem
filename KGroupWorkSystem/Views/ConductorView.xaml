@@ -7,19 +7,26 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
             <Label Content="指揮者"/>
-            <Label Content="{Binding LabelContent.Value}"/>
-            <Button Content="Start" Width="100" Command="{Binding StartButton}"/>
-        </StackPanel>
+                <Label Content="{Binding LabelContent.Value}"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding Worker1StatusText.Value}"/>
+                        <Label Content="{Binding Worker1StatusText.Value}" FontSize="20"/>
                         <Button Content="次へ" Width="100" Command="{Binding Worker1UpdateCommand}" Margin="5"/>
                     </StackPanel>
-                    <Label Content="{Binding CurrentWorker1Workings.Value.Id}"/>
-                    <Label Content="{Binding CurrentWorker1Workings.Value.WorkTitle}"/>
-                    <Label Content="{Binding CurrentWorker1Workings.Value.WorkName}"/>
-                    <Label Content="{Binding CurrentWorker1Workings.Value.WorkDetails}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="大項目"/>
+                        <Label Content="{Binding CurrentWorker1Workings.Value.WorkTitle}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="中項目"/>
+                        <Label Content="{Binding CurrentWorker1Workings.Value.WorkOp}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="小項目"/>
+                        <Label Content="{Binding CurrentWorker1Workings.Value.WorkDetails}"/>
+                    </StackPanel>
                     <DataGrid  ItemsSource="{Binding Worker1Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="LightGray"
@@ -32,91 +39,107 @@
                                     <Setter Property="Background" Value="LightGreen" />
                                 </DataTrigger>
                                     <DataTrigger Binding="{Binding IsCurrent}" Value="True">
-                                        <Setter Property="Background" Value="Red" />
+                                        <Setter Property="Background" Value="Aqua" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsDone}" Value="True">
-                                    <Setter Property="Background" Value="Blue" />
+                                    <Setter Property="Background" Value="LightGray" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </DataGrid.ItemContainerStyle>
-                    <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
-                        <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
-                        <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
-                        <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
-                        <DataGridTextColumn Header="同期" Binding="{Binding IsSync}" />
-                    </DataGrid.Columns>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
+                            <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
+                            <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
+                        </DataGrid.Columns>
                 </DataGrid>
                 </StackPanel>
                 <StackPanel>
-                    <Button Content="次へ" Width="100" Command="{Binding Worker2UpdateCommand}" Margin="5"/>
-                    <Label Content="{Binding CurrentWorker2Workings.Value.Id}"/>
-                    <Label Content="{Binding CurrentWorker2Workings.Value.WorkTitle}"/>
-                    <Label Content="{Binding CurrentWorker2Workings.Value.WorkName}"/>
-                    <Label Content="{Binding CurrentWorker2Workings.Value.WorkDetails}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Worker2StatusText.Value}" FontSize="20"/>
+                        <Button Content="次へ" Width="100" Command="{Binding Worker2UpdateCommand}" Margin="5"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="大項目"/>
+                        <Label Content="{Binding CurrentWorker2Workings.Value.WorkTitle}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="中項目"/>
+                        <Label Content="{Binding CurrentWorker2Workings.Value.WorkOp}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="小項目"/>
+                        <Label Content="{Binding CurrentWorker2Workings.Value.WorkDetails}"/>
+                    </StackPanel>
                     <DataGrid  ItemsSource="{Binding Worker2Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="LightGray"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False" SelectionUnit="Cell" >
                     <DataGrid.ItemContainerStyle>
-                        <Style TargetType="DataGridRow">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSync}" Value="True">
-                                    <Setter Property="Background" Value="LightGreen" />
-                                </DataTrigger>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSync}" Value="True">
+                                        <Setter Property="Background" Value="LightGreen" />
+                                    </DataTrigger>
                                     <DataTrigger Binding="{Binding IsCurrent}" Value="True">
-                                        <Setter Property="Background" Value="Red" />
+                                        <Setter Property="Background" Value="Aqua" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsDone}" Value="True">
-                                    <Setter Property="Background" Value="Blue" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.ItemContainerStyle>
-                    <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                                        <Setter Property="Background" Value="LightGray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                        <DataGrid.Columns>
                             <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
-                        <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
-                        <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
-                        <DataGridTextColumn Header="同期" Binding="{Binding IsSync}" />
-                    </DataGrid.Columns>
+                            <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
+                            <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
+                        </DataGrid.Columns>
                 </DataGrid>
                 </StackPanel>
                 <StackPanel>
-                    <Button Content="次へ" Width="100" Command="{Binding Worker3UpdateCommand}" Margin="5" />
-                    <Label Content="{Binding CurrentWorker3Workings.Value.Id}"/>
-                    <Label Content="{Binding CurrentWorker3Workings.Value.WorkTitle}"/>
-                    <Label Content="{Binding CurrentWorker3Workings.Value.WorkName}"/>
-                    <Label Content="{Binding CurrentWorker3Workings.Value.WorkDetails}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Worker3StatusText.Value}" FontSize="20"/>
+                        <Button Content="次へ" Width="100" Command="{Binding Worker3UpdateCommand}" Margin="5"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="大項目"/>
+                        <Label Content="{Binding CurrentWorker3Workings.Value.WorkTitle}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="中項目"/>
+                        <Label Content="{Binding CurrentWorker3Workings.Value.WorkOp}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="小項目"/>
+                        <Label Content="{Binding CurrentWorker3Workings.Value.WorkDetails}"/>
+                    </StackPanel>
                     <DataGrid  ItemsSource="{Binding Worker3Workings.Value}"  AutoGenerateColumns="False" FontSize="15" Margin="5"
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="LightGray"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False" SelectionUnit="Cell" >
                     <DataGrid.ItemContainerStyle>
-                        <Style TargetType="DataGridRow">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSync}" Value="True">
-                                    <Setter Property="Background" Value="LightGreen" />
-                                </DataTrigger>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSync}" Value="True">
+                                        <Setter Property="Background" Value="LightGreen" />
+                                    </DataTrigger>
                                     <DataTrigger Binding="{Binding IsCurrent}" Value="True">
-                                        <Setter Property="Background" Value="Red" />
+                                        <Setter Property="Background" Value="Aqua" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsDone}" Value="True">
-                                    <Setter Property="Background" Value="Blue" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.ItemContainerStyle>
-                    <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                                        <Setter Property="Background" Value="LightGray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                        <DataGrid.Columns>
                             <DataGridTextColumn Header="作業者" Binding="{Binding WorkerId}" />
-                        <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
-                        <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
-                        <DataGridTextColumn Header="同期" Binding="{Binding IsSync}" />
-                    </DataGrid.Columns>
+                            <DataGridTextColumn Header="作業番号" Binding="{Binding WorkOpId}" />
+                            <DataGridTextColumn Header="作業内容" Binding="{Binding WorkDetails}" />
+                        </DataGrid.Columns>
                 </DataGrid>
                 </StackPanel>
             </StackPanel>

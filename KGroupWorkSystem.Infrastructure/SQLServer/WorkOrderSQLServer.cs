@@ -19,23 +19,21 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
 
             query.AppendLine("select");
             query.AppendLine("        [id]");
-            query.AppendLine("        ,[workId]");
+            query.AppendLine("        ,[workTitleId]");
             query.AppendLine("        ,[workerId]");
             query.AppendLine("        ,[workOpId]");
             query.AppendLine("        ,[workTitle]");
-            query.AppendLine("        ,[workName]");
+            query.AppendLine("        ,[workOpName]");
             query.AppendLine("        ,[workDetails]");
+            query.AppendLine("        ,[workDetailsId]");
             query.AppendLine("        ,[caution]");
             query.AppendLine("        ,[isDone]");
             query.AppendLine("        ,[isSync]");
             query.AppendLine("        ,[isCurrent]");
             query.AppendLine("from");
             query.AppendLine("        [KGWS].[dbo].[Working]");
-            //query.AppendLine("where");
-            //query.AppendLine("        [SQKID]=@SQKID");
 
             parameters.Clear();
-            //parameters.Add(new SqlParameter("@SQKID", sqkId));
 
             SQLServerHelper.Query(
                 query.ToString(),
@@ -44,12 +42,13 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
                 {
                     list.Add(new WorkingEntity(
                         Convert.ToInt32(reader["id"]),
-                        Convert.ToInt32(reader["workId"]),
+                        Convert.ToInt32(reader["workTitleId"]),
                         Convert.ToInt32(reader["workerId"]),
                         Convert.ToInt32(reader["workOpId"]),
                         Convert.ToString(reader["workTitle"]),
-                        Convert.ToString(reader["workName"]),
+                        Convert.ToString(reader["workOpName"]),
                         Convert.ToString(reader["workDetails"]),
+                        Convert.ToInt32(reader["workDetailsId"]),
                         Convert.ToString(reader["caution"]),
                         Convert.ToBoolean(reader["isDone"]),
                         Convert.ToBoolean(reader["isSync"]),
@@ -102,12 +101,12 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
             query.AppendLine("        [KGWS].[dbo].[Working]");
             query.AppendLine("set [isCurrent]='false'");
             query.AppendLine("where");
-            query.AppendLine("        [workId]=@workId");
+            query.AppendLine("        [workTitleId]=@workTitleId");
             query.AppendLine("and");
             query.AppendLine("        [workerId]=@workerId");
 
             parameters.Clear();
-            parameters.Add(new SqlParameter("@workId", workingEntity.WorkId));
+            parameters.Add(new SqlParameter("@workTitleId", workingEntity.WorkTitleId));
             parameters.Add(new SqlParameter("@workerId", workingEntity.WorkerId));
             SQLServerHelper.Execute(query.ToString(), parameters.ToArray());
 
@@ -116,14 +115,14 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
             query.AppendLine("        [KGWS].[dbo].[Working]");
             query.AppendLine("set [isCurrent]='true'");
             query.AppendLine("where");
-            query.AppendLine("        [workId]=@workId");
+            query.AppendLine("        [workTitleId]=@workTitleId");
             query.AppendLine("and");
             query.AppendLine("        [workerId]=@workerId");
             query.AppendLine("and");
             query.AppendLine("        [workOpId]=@workOpId");
 
             parameters.Clear();
-            parameters.Add(new SqlParameter("@workId", workingEntity.WorkId));
+            parameters.Add(new SqlParameter("@workTitleId", workingEntity.WorkTitleId));
             parameters.Add(new SqlParameter("@workerId", workingEntity.WorkerId));
             parameters.Add(new SqlParameter("@workOpId", workingEntity.WorkOpId));
             SQLServerHelper.Execute(query.ToString(), parameters.ToArray());

@@ -21,19 +21,19 @@ namespace KGroupWorkSystem.Domain.StaticValues
                 _entities.AddRange(workOrderRepository.GetWorkingData());
             }
         }
-        public static List<WorkingEntity> GetWorkings(int workId , int workerId)
+        public static List<WorkingEntity> GetWorkings(int workTitleId , int workerId)
         {
             lock (((ICollection)_entities).SyncRoot)
             {
-                return _entities.Where(x => x.WorkId == workId && x.WorkerId == workerId).ToList();
+                return _entities.Where(x => x.WorkTitleId == workTitleId && x.WorkerId == workerId).ToList();
             }
         }
 
-        public static List<WorkingEntity> GetWorkings(int workId)
+        public static List<WorkingEntity> GetWorkings(int workTitleId)
         {
             lock (((ICollection)_entities).SyncRoot)
             {
-                return _entities.Where(x => x.WorkId == workId).ToList();
+                return _entities.Where(x => x.WorkTitleId == workTitleId).ToList();
             }
         }
     }
