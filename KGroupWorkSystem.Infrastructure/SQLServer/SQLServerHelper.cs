@@ -12,6 +12,7 @@ namespace KGroupWorkSystem.Infrastructure.SQLServer
         internal readonly static string ConnectionString;
         static SQLServerHelper()
         {
+            //pass00000000
             var builder = new SqlConnectionStringBuilder();
             builder.DataSource = @"DESKTOP-8B0KCU1\SQLEXPRESS";
             builder.InitialCatalog = "KGWS";
