@@ -23,7 +23,7 @@
                 <StackPanel Orientation="Horizontal">
                 <TextBox Text="{Binding SelectedUserIdText.Value}" Width="200"/>
                 <TextBox Text="{Binding SelectedPaletteNameText.Value}" Width="200"/>
-                <Button Content="Next" Command="{Binding UpdateCommand}" />
+                <Button Content="Update" Command="{Binding UpdateCommand}" />
                 <Button Content="Delete" Command="{Binding DeleteCommand}" />
                 </StackPanel>
             </StackPanel>

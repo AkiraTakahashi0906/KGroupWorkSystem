@@ -58,11 +58,15 @@
     </ApplicationDefinition>
     <Compile Include="BackgroundWorkers\WorkOrderTimer.cs" />
     <Compile Include="ViewModels\ConductorViewModel.cs" />
+    <Compile Include="ViewModels\PalettePartsDetailsViewModel.cs" />
     <Compile Include="ViewModels\PalettePartsListViewModel.cs" />
     <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="ViewModels\WorkOrderViewModel.cs" />
     <Compile Include="Views\ConductorView.xaml.cs">
       <DependentUpon>ConductorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PalettePartsDetailsView.xaml.cs">
+      <DependentUpon>PalettePartsDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PalettePartsListView.xaml.cs">
       <DependentUpon>PalettePartsListView.xaml</DependentUpon>
@@ -90,6 +94,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\PalettePartsDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PalettePartsListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

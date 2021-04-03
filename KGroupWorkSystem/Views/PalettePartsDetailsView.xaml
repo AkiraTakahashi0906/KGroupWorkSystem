@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="KGroupWorkSystem.Views.PalettePartsDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <StackPanel>
+            <ComboBox ItemsSource="{Binding Palettes.Value}" DisplayMemberPath="PaletteName"/>
+            <ListView ItemsSource="{Binding Boms.Value}" SelectedItem="{Binding SelectedBom.Value}" Height="200">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="AssyNumber" DisplayMemberBinding="{Binding AssyNumber}" Width="100"/>
+                        <GridViewColumn Header="PartsNumber" DisplayMemberBinding="{Binding PartsNumber}" Width="100"/>
+                        <GridViewColumn Header="PartsName" DisplayMemberBinding="{Binding PartsName}" Width="100"/>
+                        <GridViewColumn Header="PartsQuantity" DisplayMemberBinding="{Binding PartsQuantity}" Width="50"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding AddQuantity.Value}"/>
+                <Button Content="+" Command="{Binding PlusCommand}" />
+                <Button Content="-" Command="{Binding MinusCommand}" />
+                <Button Content="Update" Command="{Binding UpdateCommand}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

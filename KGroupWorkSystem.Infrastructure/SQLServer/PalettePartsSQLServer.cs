@@ -51,6 +51,7 @@ update
 set
      [user_id]=@user_id
     ,[palette_name]=@palette_name
+    ,[is_deleted]=@is_deleted
 where
     [palette_id]=@palette_id
 ";
@@ -59,6 +60,7 @@ where
             parameters.Add(new SqlParameter("@palette_id", palette.PaletteId));
             parameters.Add(new SqlParameter("@user_id", palette.UserId));
             parameters.Add(new SqlParameter("@palette_name", palette.PaletteName));
+            parameters.Add(new SqlParameter("@is_deleted", palette.IsDeleted));
             SQLServerHelper.Execute(sql, parameters.ToArray());
         }
     }

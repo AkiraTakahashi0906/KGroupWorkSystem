@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BomPartsEntity.cs" />
     <Compile Include="Entities\PaletteEntity.cs" />
     <Compile Include="Entities\WorkingEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IBomRepository.cs" />
     <Compile Include="Repositories\IPalettePartsRepository.cs" />
     <Compile Include="Repositories\IWorkOrderRepository.cs" />
     <Compile Include="StaticValues\WorkingData.cs" />
