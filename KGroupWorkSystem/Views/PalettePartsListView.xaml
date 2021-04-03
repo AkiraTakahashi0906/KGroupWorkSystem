@@ -4,14 +4,29 @@
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <ListView ItemsSource="{Binding Palettes.Value}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="palette id" DisplayMemberBinding="{Binding PaletteId}" Width="100"/>
-                    <GridViewColumn Header="user id" DisplayMemberBinding="{Binding UserId}" Width="100"/>
-                    <GridViewColumn Header="palette name" DisplayMemberBinding="{Binding PaletteName}" Width="200"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <StackPanel>
+            <ListView ItemsSource="{Binding Palettes.Value}" SelectedItem="{Binding SelectedPalette.Value}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="palette id" DisplayMemberBinding="{Binding PaletteId}" Width="100"/>
+                        <GridViewColumn Header="user id" DisplayMemberBinding="{Binding UserId}" Width="100"/>
+                        <GridViewColumn Header="palette name" DisplayMemberBinding="{Binding PaletteName}" Width="200"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{Binding SelectedPalette.Value.PaletteId}"/>
+                    <Label Content="{Binding SelectedPalette.Value.UserId}"/>
+                    <Label Content="{Binding SelectedPalette.Value.PaletteName}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding SelectedUserIdText.Value}" Width="200"/>
+                <TextBox Text="{Binding SelectedPaletteNameText.Value}" Width="200"/>
+                <Button Content="Next" Command="{Binding UpdateCommand}" />
+                <Button Content="Delete" Command="{Binding DeleteCommand}" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

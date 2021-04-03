@@ -10,14 +10,17 @@ namespace KGroupWorkSystem.Domain.Entities
     {
         public PaletteEntity(int paletteId,
                                      int userid,
-                                     string paletteName)
+                                     string paletteName,
+                                     bool isDeleted)
         {
             PaletteId = paletteId;
             UserId = userid;
             PaletteName = paletteName;
+            IsDeleted = isDeleted;
         }
         public int PaletteId { get; }
         public int UserId { get;}
         public string PaletteName { get; }
+        public bool IsDeleted { get; }
     }
 }

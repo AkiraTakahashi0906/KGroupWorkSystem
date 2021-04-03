@@ -10,6 +10,6 @@ namespace KGroupWorkSystem.Domain.Repositories
     public interface IPalettePartsRepository
     {
         List<PaletteEntity> GetPalettes();
-        void RegistrationPalette(PaletteEntity palette);
+        void PaletteSave(PaletteEntity palette);
     }
 }

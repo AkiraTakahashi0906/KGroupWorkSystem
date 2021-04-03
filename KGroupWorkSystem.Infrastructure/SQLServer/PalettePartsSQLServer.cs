@@ -20,9 +20,13 @@ select
     [palette_id]
     ,[user_id]
     ,[palette_name]
+    ,[is_deleted]
 from [KGWS].[dbo].[palettes]
+where 
+    [is_deleted]=@is_deleted
 ";
             parameters.Clear();
+            parameters.Add(new SqlParameter("@is_deleted", false));
 
             SQLServerHelper.Query(
                 sql,
@@ -32,9 +36,30 @@ from [KGWS].[dbo].[palettes]
                     list.Add(new PaletteEntity(
                         Convert.ToInt32(reader["palette_id"]),
                         Convert.ToInt32(reader["user_id"]),
-                        Convert.ToString(reader["palette_name"])));
+                        Convert.ToString(reader["palette_name"]),
+                        Convert.ToBoolean(reader["is_deleted"])));
                 });
             return list;
+        }
+
+        public void PaletteSave(PaletteEntity palette)
+        {
+            var parameters = new List<SqlParameter>();
+            var sql = @"
+update
+    [KGWS].[dbo].[palettes]
+set
+     [user_id]=@user_id
+    ,[palette_name]=@palette_name
+where
+    [palette_id]=@palette_id
+";
+
+            parameters.Clear();
+            parameters.Add(new SqlParameter("@palette_id", palette.PaletteId));
+            parameters.Add(new SqlParameter("@user_id", palette.UserId));
+            parameters.Add(new SqlParameter("@palette_name", palette.PaletteName));
+            SQLServerHelper.Execute(sql, parameters.ToArray());
         }
     }
 }
