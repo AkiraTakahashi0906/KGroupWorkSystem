@@ -20,7 +20,24 @@
                 <Label Content="{Binding AddQuantity.Value}"/>
                 <Button Content="+" Command="{Binding PlusCommand}" />
                 <Button Content="-" Command="{Binding MinusCommand}" />
-                <Button Content="Update" Command="{Binding UpdateCommand}" />
+                <Button Content="Update" Command="{Binding PaletteDetailsAddCommand}" />
+            </StackPanel>
+            <ListView ItemsSource="{Binding PaletteDetails.Value}" SelectedItem="{Binding SelectedPaletteDetails.Value}" Height="200">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Paletteid" DisplayMemberBinding="{Binding Paletteid}" Width="100"/>
+                        <GridViewColumn Header="PartsNumber" DisplayMemberBinding="{Binding PartsNumber}" Width="100"/>
+                        <GridViewColumn Header="PartsName" DisplayMemberBinding="{Binding PartsName}" Width="100"/>
+                        <GridViewColumn Header="PartsQuantity" DisplayMemberBinding="{Binding PartsQuantity}" Width="50"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding SelectedPaletteDetails.Value.PartsQuantity}"/>
+                <Label Content="{Binding UpdateQuantity.Value}"/>
+                <Button Content="+" Command="{Binding PaletteDetailsPlusCommand}" />
+                <Button Content="-" Command="{Binding PaletteDetailsMinusCommand}" />
+                <Button Content="Update" Command="{Binding PaletteDetailsUpdateCommand}" />
             </StackPanel>
         </StackPanel>
     </Grid>
