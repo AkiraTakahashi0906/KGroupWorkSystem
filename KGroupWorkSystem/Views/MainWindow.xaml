@@ -10,6 +10,7 @@
                 <Button Content="作業指示作成" Width="100" Command="{Binding WorkOrderButton}"/>
                 <Button Content="指揮者" Width="100" Command="{Binding ConductorButton}"/>
                 <Button Content="作業者" Width="100" Command="{Binding WorkerButton}"/>
+                <Button Content="KIT" Width="100" Command="{Binding KitButton}"/>
             </StackPanel>
             <ContentControl prism:RegionManager.RegionName="ContentRegion" />
         </StackPanel>

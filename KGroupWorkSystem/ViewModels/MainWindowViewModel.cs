@@ -22,10 +22,17 @@ namespace KGroupWorkSystem.ViewModels
             WorkOrderButton = new DelegateCommand(WorkOrderButtonExecute);
             ConductorButton = new DelegateCommand(ConductorButtonExecute);
             WorkerButton = new DelegateCommand(WorkerButtonExecute);
+            KitButton = new DelegateCommand(KitButtonExecute);
         }
         public DelegateCommand WorkOrderButton { get; }
         public DelegateCommand ConductorButton { get; }
         public DelegateCommand WorkerButton { get; }
+        public DelegateCommand KitButton { get; }
+
+        private void KitButtonExecute()
+        {
+            _regionManager.RequestNavigate("ContentRegion", nameof(PalettePartsListView));
+        }
 
         private void WorkerButtonExecute()
         {

@@ -22,6 +22,7 @@ namespace KGroupWorkSystem
             containerRegistry.RegisterForNavigation<WorkOrderView>();
             containerRegistry.RegisterForNavigation<ConductorView>();
             containerRegistry.RegisterForNavigation<WorkerView>();
+            containerRegistry.RegisterForNavigation<PalettePartsListView>();
         }
     }
 }
