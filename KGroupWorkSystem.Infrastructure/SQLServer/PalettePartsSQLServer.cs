@@ -136,6 +136,24 @@ order by [parts_number]
             return list;
         }
 
+        public void PaletteDetailsDelete(int paletteDetailsid)
+        {
+            var parameters = new List<SqlParameter>();
+            var sql = @"
+update
+    [KGWS].[dbo].[palette_details]
+set
+     [is_deleted]=@is_deleted
+where
+    [palette_details_id]=@palette_details_id
+";
+
+            parameters.Clear();
+            parameters.Add(new SqlParameter("@palette_details_id", paletteDetailsid));
+            parameters.Add(new SqlParameter("@is_deleted", true));
+            SQLServerHelper.Execute(sql, parameters.ToArray());
+        }
+
         public List<PaletteEntity> GetPalettes()
         {
             var parameters = new List<SqlParameter>();

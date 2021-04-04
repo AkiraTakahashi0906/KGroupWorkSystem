@@ -13,5 +13,6 @@ namespace KGroupWorkSystem.Domain.Repositories
         void PaletteSave(PaletteEntity palette);
         List<PaletteDetailsEntity> GetPaletteDetails(int paletteid);
         void PaletteDetailsSave(PaletteDetailsEntity paletteDetails);
+        void PaletteDetailsDelete(int paletteDetailsid);
     }
 }

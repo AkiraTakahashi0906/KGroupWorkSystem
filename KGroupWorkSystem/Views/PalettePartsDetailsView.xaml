@@ -4,31 +4,51 @@
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <StackPanel>
-            <ComboBox ItemsSource="{Binding Palettes.Value}" DisplayMemberPath="PaletteName"/>
-            <ListView ItemsSource="{Binding Boms.Value}" SelectedItem="{Binding SelectedBom.Value}" Height="200">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="10">
+            <Label Content="Assy"/>
+            <ComboBox ItemsSource="{Binding AssyNumbers.Value}" SelectedItem="{Binding SelectedAssyNumber.Value}" Width="100"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="10">
+            <Label Content="KIT"/>
+            <ComboBox ItemsSource="{Binding Palettes.Value}" SelectedItem="{Binding SelectedPalette.Value}" DisplayMemberPath="PaletteName" Width="100"/>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="10">
+            <ListView ItemsSource="{Binding Boms.Value}" SelectedItem="{Binding SelectedBom.Value}" Height="300">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="AssyNumber" DisplayMemberBinding="{Binding AssyNumber}" Width="100"/>
-                        <GridViewColumn Header="PartsNumber" DisplayMemberBinding="{Binding PartsNumber}" Width="100"/>
-                        <GridViewColumn Header="PartsName" DisplayMemberBinding="{Binding PartsName}" Width="100"/>
-                        <GridViewColumn Header="PartsQuantity" DisplayMemberBinding="{Binding PartsQuantity}" Width="50"/>
+                        <GridViewColumn Header="Assy" DisplayMemberBinding="{Binding AssyNumber}" Width="100"/>
+                        <GridViewColumn Header="部品番号" DisplayMemberBinding="{Binding PartsNumber}" Width="100"/>
+                        <GridViewColumn Header="名称" DisplayMemberBinding="{Binding PartsName}" Width="100"/>
+                        <GridViewColumn Header="数量" DisplayMemberBinding="{Binding PartsQuantity}" Width="100"/>
+                        <GridViewColumn Header="使用可能" DisplayMemberBinding="{Binding CanUsePartsQuantity}" Width="100"/>
+                        <GridViewColumn Header="使用済" DisplayMemberBinding="{Binding UsedPartsQuantity}" Width="100"/>
                     </GridView>
                 </ListView.View>
             </ListView>
             <StackPanel Orientation="Horizontal">
+                <Label Content="追加数量"/>
                 <Label Content="{Binding AddQuantity.Value}"/>
                 <Button Content="+" Command="{Binding PlusCommand}" />
                 <Button Content="-" Command="{Binding MinusCommand}" />
-                <Button Content="Update" Command="{Binding PaletteDetailsAddCommand}" />
+                <Button Content="Add" Command="{Binding PaletteDetailsAddCommand}" />
             </StackPanel>
-            <ListView ItemsSource="{Binding PaletteDetails.Value}" SelectedItem="{Binding SelectedPaletteDetails.Value}" Height="200">
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="10">
+            <ListView ItemsSource="{Binding PaletteDetails.Value}" SelectedItem="{Binding SelectedPaletteDetails.Value}" Height="300">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Paletteid" DisplayMemberBinding="{Binding Paletteid}" Width="100"/>
-                        <GridViewColumn Header="PartsNumber" DisplayMemberBinding="{Binding PartsNumber}" Width="100"/>
-                        <GridViewColumn Header="PartsName" DisplayMemberBinding="{Binding PartsName}" Width="100"/>
-                        <GridViewColumn Header="PartsQuantity" DisplayMemberBinding="{Binding PartsQuantity}" Width="50"/>
+                        <GridViewColumn Header="部品番号" DisplayMemberBinding="{Binding PartsNumber}" Width="100"/>
+                        <GridViewColumn Header="名称" DisplayMemberBinding="{Binding PartsName}" Width="100"/>
+                        <GridViewColumn Header="数量" DisplayMemberBinding="{Binding PartsQuantity}" Width="50"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -38,6 +58,7 @@
                 <Button Content="+" Command="{Binding PaletteDetailsPlusCommand}" />
                 <Button Content="-" Command="{Binding PaletteDetailsMinusCommand}" />
                 <Button Content="Update" Command="{Binding PaletteDetailsUpdateCommand}" />
+                <Button Content="Delete" Command="{Binding PaletteDetailsDeleteCommand}" />
             </StackPanel>
         </StackPanel>
     </Grid>

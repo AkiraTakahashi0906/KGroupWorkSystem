@@ -15,35 +15,41 @@ namespace KGroupWorkSystem.ViewModels
     {
         private IPalettePartsRepository _palettePartsRepository;
         private IBomRepository _bomRepository;
-        private readonly int _paletteid = 1;
         private bool _isDeleted = false;
 
         public PalettePartsDetailsViewModel()
         {
             _palettePartsRepository = new PalettePartsSQLServer();
             _bomRepository = new BomSQLServer();
+            AssyNumbers.Value =  new ObservableCollection<string>();
 
+            GetAssyNumbers();
             GetPalettes();
-            GetPaletteDetails();
-            Boms.Value = new ObservableCollection<BomPartsEntity>(_bomRepository.GetBomParts("1"));
-
+            SelectedAssyNumber.Subscribe(_ => SelectedAssyNumberChangeEcecute());
             SelectedPaletteDetails.Subscribe(_ => SelectedPaletteDetailsChangeExecute());
             SelectedBom.Subscribe(_ => SelectedBomChangeExecute());
             PlusCommand.Subscribe(_ => PlusCommandExecute());
             MinusCommand.Subscribe(_ => MinusCommandExecute());
-
+            SelectedPalette.Subscribe(_ => SearchCommandExecute());
             PaletteDetailsPlusCommand.Subscribe(_ => PaletteDetailsPlusCommandExecute());
             PaletteDetailsMinusCommand.Subscribe(_ => PaletteDetailsMinusommandExecute());
             PaletteDetailsUpdateCommand.Subscribe(_ => PaletteDetailsSaveExecute());
             PaletteDetailsAddCommand.Subscribe(_ => PaletteDetailsAddCommandExecute());
+            PaletteDetailsDeleteCommand.Subscribe(_ => PaletteDetailsDeleteCommandExecute());
         }
+        public ReactivePropertySlim<ObservableCollection<string>> AssyNumbers { get; }
+            = new ReactivePropertySlim<ObservableCollection<string>>();
+
+        public ReactivePropertySlim<string> SelectedAssyNumber { get; }
+            = new ReactivePropertySlim<string>(mode: ReactivePropertyMode.None);
+
         public ReactivePropertySlim<ObservableCollection<BomPartsEntity>> Boms { get; }
                     = new ReactivePropertySlim<ObservableCollection<BomPartsEntity>>();
         public ReactivePropertySlim<BomPartsEntity> SelectedBom { get; }
             = new ReactivePropertySlim<BomPartsEntity>(mode: ReactivePropertyMode.None);
         public ReactivePropertySlim<ObservableCollection<PaletteEntity>> Palettes { get; }
                     = new ReactivePropertySlim<ObservableCollection<PaletteEntity>>();
-        public ReactivePropertySlim<PaletteEntity> SelectedPalette { get; } = new ReactivePropertySlim<PaletteEntity>();
+        public ReactivePropertySlim<PaletteEntity> SelectedPalette { get; } = new ReactivePropertySlim<PaletteEntity>(mode: ReactivePropertyMode.None);
         public ReactivePropertySlim<int> AddQuantity { get; } = new ReactivePropertySlim<int>();
 
         public ReactivePropertySlim<ObservableCollection<PaletteDetailsEntity>> PaletteDetails { get; }
@@ -53,15 +59,38 @@ namespace KGroupWorkSystem.ViewModels
 
         public ReactiveCommand PlusCommand { get; } = new ReactiveCommand();
         public ReactiveCommand MinusCommand { get; } = new ReactiveCommand();
-
         public ReactiveCommand PaletteDetailsPlusCommand { get; } = new ReactiveCommand();
         public ReactiveCommand PaletteDetailsMinusCommand { get; } = new ReactiveCommand();
         public ReactiveCommand PaletteDetailsUpdateCommand { get; } = new ReactiveCommand();
         public ReactiveCommand PaletteDetailsAddCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand PaletteDetailsDeleteCommand { get; } = new ReactiveCommand();
+
+        private void PaletteDetailsDeleteCommandExecute()
+        {
+            _palettePartsRepository.PaletteDetailsDelete(SelectedPaletteDetails.Value.PaletteDetailsid);
+            GetPaletteDetails();
+            GetBom();
+        }
+
+        private void GetAssyNumbers()
+        {
+            AssyNumbers.Value.Add("1");
+            AssyNumbers.Value.Add("2");
+        }
+
+        private void SelectedAssyNumberChangeEcecute()
+        {
+            GetBom();
+        }
+
+        private void SearchCommandExecute()
+        {
+            GetPaletteDetails();
+        }
 
         private void PaletteDetailsAddCommandExecute()
         {
-            var paletteDetailsSave = new PaletteDetailsEntity(_paletteid,
+            var paletteDetailsSave = new PaletteDetailsEntity(SelectedPalette.Value.PaletteId,
                                                                             0,
                                                                             SelectedBom.Value.PartsNumber,
                                                                             SelectedBom.Value.PartsName,
@@ -70,6 +99,7 @@ namespace KGroupWorkSystem.ViewModels
 
             _palettePartsRepository.PaletteDetailsSave(paletteDetailsSave);
             GetPaletteDetails();
+            GetBom();
         }
 
         private void PaletteDetailsPlusCommandExecute()
@@ -101,6 +131,7 @@ namespace KGroupWorkSystem.ViewModels
 
             _palettePartsRepository.PaletteDetailsSave(paletteDetailsSave);
             GetPaletteDetails();
+            GetBom();
         }
         private void PlusCommandExecute()
         {
@@ -114,7 +145,10 @@ namespace KGroupWorkSystem.ViewModels
 
         private void SelectedBomChangeExecute()
         {
-            AddQuantity.Value = SelectedBom.Value.PartsQuantity;
+            if (SelectedBom.Value != null)
+            {
+                AddQuantity.Value = SelectedBom.Value.CanUsePartsQuantity;
+            }
         }
 
         private void GetPalettes()
@@ -124,7 +158,13 @@ namespace KGroupWorkSystem.ViewModels
 
         private void GetPaletteDetails()
         {
-            PaletteDetails.Value = new ObservableCollection<PaletteDetailsEntity>(_palettePartsRepository.GetPaletteDetails(_paletteid));
+            PaletteDetails.Value = new ObservableCollection<PaletteDetailsEntity>
+                                            (_palettePartsRepository.GetPaletteDetails(SelectedPalette.Value.PaletteId));
+        }
+
+        private void GetBom()
+        {
+            Boms.Value = new ObservableCollection<BomPartsEntity>(_bomRepository.GetBomParts(SelectedAssyNumber.Value));
         }
     }
 }
