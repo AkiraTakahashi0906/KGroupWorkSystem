@@ -31,6 +31,8 @@ left join (
     from [KGWS].[dbo].[palette_details] details
     where 
         details.[is_deleted]=@is_deleted
+    and
+        details.[assy_number]=@assy_number
     group by details.[parts_number]
     ) as details_sum
 

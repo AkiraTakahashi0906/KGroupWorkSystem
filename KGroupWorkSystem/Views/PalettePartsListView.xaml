@@ -11,6 +11,8 @@
                         <GridViewColumn Header="palette id" DisplayMemberBinding="{Binding PaletteId}" Width="100"/>
                         <GridViewColumn Header="user id" DisplayMemberBinding="{Binding UserId}" Width="100"/>
                         <GridViewColumn Header="palette name" DisplayMemberBinding="{Binding PaletteName}" Width="200"/>
+                        <GridViewColumn Header="palette name" DisplayMemberBinding="{Binding UseSeg}" Width="200"/>
+                        <GridViewColumn Header="palette name" DisplayMemberBinding="{Binding UsePlace}" Width="200"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -21,10 +23,19 @@
                     <Label Content="{Binding SelectedPalette.Value.PaletteName}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                <TextBox Text="{Binding SelectedUserIdText.Value}" Width="200"/>
-                <TextBox Text="{Binding SelectedPaletteNameText.Value}" Width="200"/>
-                <Button Content="Update" Command="{Binding UpdateCommand}" />
-                <Button Content="Delete" Command="{Binding DeleteCommand}" />
+                    <Label Content="User id:"/>
+                    <TextBox Text="{Binding SelectedUserIdText.Value}" Width="100" Margin="5"/>
+                    <Label Content="Kit name:"/>
+                    <TextBox Text="{Binding SelectedPaletteNameText.Value}" Width="100"  Margin="5"/>
+                    <Label Content="use seg:"/>
+                    <TextBox Text="{Binding SelectedUseSegText.Value}" Width="100"  Margin="5"/>
+                    <Label Content="use place:"/>
+                    <TextBox Text="{Binding SelectedUsePlaceText.Value}" Width="100"  Margin="5"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Update" Command="{Binding UpdateCommand}"   Margin="5"/>
+                    <Button Content="Delete" Command="{Binding DeleteCommand}"   Margin="5"/>
+                    <Button Content="Add" Command="{Binding AddCommand}"   Margin="5"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

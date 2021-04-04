@@ -16,12 +16,14 @@ namespace KGroupWorkSystem.ViewModels
         private IPalettePartsRepository _palettePartsRepository;
         private IBomRepository _bomRepository;
         private bool _isDeleted = false;
+        private string _defaultPlaceKey = "未登録";
+        private string _defaultSubAssemblyKey = "無し";
 
         public PalettePartsDetailsViewModel()
         {
             _palettePartsRepository = new PalettePartsSQLServer();
             _bomRepository = new BomSQLServer();
-            AssyNumbers.Value =  new ObservableCollection<string>();
+            AssyNumbers.Value = new ObservableCollection<string>();
 
             GetAssyNumbers();
             GetPalettes();
@@ -68,6 +70,7 @@ namespace KGroupWorkSystem.ViewModels
         private void PaletteDetailsDeleteCommandExecute()
         {
             _palettePartsRepository.PaletteDetailsDelete(SelectedPaletteDetails.Value.PaletteDetailsid);
+            UpdateQuantity.Value = 0;
             GetPaletteDetails();
             GetBom();
         }
@@ -90,26 +93,37 @@ namespace KGroupWorkSystem.ViewModels
 
         private void PaletteDetailsAddCommandExecute()
         {
+            // 0 のときは例外を投げる
             var paletteDetailsSave = new PaletteDetailsEntity(SelectedPalette.Value.PaletteId,
                                                                             0,
+                                                                            SelectedBom.Value.AssyNumber,
                                                                             SelectedBom.Value.PartsNumber,
                                                                             SelectedBom.Value.PartsName,
                                                                             AddQuantity.Value,
+                                                                            _defaultPlaceKey,
+                                                                            _defaultSubAssemblyKey,
                                                                             _isDeleted);
 
-            _palettePartsRepository.PaletteDetailsSave(paletteDetailsSave);
+            _palettePartsRepository.PaletteDetailsInsert(paletteDetailsSave);
             GetPaletteDetails();
             GetBom();
+            AddQuantity.Value = 0;
         }
 
         private void PaletteDetailsPlusCommandExecute()
         {
-            UpdateQuantity.Value++;
+            if (UpdateQuantity.Value < SelectedPaletteDetails.Value.PartsQuantity)
+            {
+                UpdateQuantity.Value++;
+            }
         }
 
         private void PaletteDetailsMinusommandExecute()
         {
-            UpdateQuantity.Value--;
+            if (UpdateQuantity.Value > 1)
+            {
+                UpdateQuantity.Value--;
+            }
         }
 
         private void SelectedPaletteDetailsChangeExecute()
@@ -122,25 +136,35 @@ namespace KGroupWorkSystem.ViewModels
 
         private void PaletteDetailsSaveExecute()
         {
+            // 0 のときは例外を投げる
             var paletteDetailsSave = new PaletteDetailsEntity(SelectedPaletteDetails.Value.Paletteid,
                                                                                      SelectedPaletteDetails.Value.PaletteDetailsid,
+                                                                                     SelectedPaletteDetails.Value.AssyNumber,
                                                                                      SelectedPaletteDetails.Value.PartsNumber,
                                                                                      SelectedPaletteDetails.Value.PartsName,
                                                                                      UpdateQuantity.Value,
+                                                                                     SelectedPaletteDetails.Value.PlaceKey,
+                                                                                     SelectedPaletteDetails.Value.SubAssemblyKey,
                                                                                      _isDeleted);
 
-            _palettePartsRepository.PaletteDetailsSave(paletteDetailsSave);
+            _palettePartsRepository.PaletteDetailsUpdate(paletteDetailsSave);
             GetPaletteDetails();
             GetBom();
         }
         private void PlusCommandExecute()
         {
-            AddQuantity.Value++;
+            if (AddQuantity.Value < SelectedBom.Value.CanUsePartsQuantity)
+            {
+                AddQuantity.Value++;
+            }
         }
 
         private void MinusCommandExecute()
         {
-            AddQuantity.Value--;
+            if (AddQuantity.Value > 1)
+            {
+                AddQuantity.Value--;
+            }
         }
 
         private void SelectedBomChangeExecute()
@@ -158,13 +182,19 @@ namespace KGroupWorkSystem.ViewModels
 
         private void GetPaletteDetails()
         {
-            PaletteDetails.Value = new ObservableCollection<PaletteDetailsEntity>
-                                            (_palettePartsRepository.GetPaletteDetails(SelectedPalette.Value.PaletteId));
+            if (SelectedPalette.Value != null)
+            {
+                PaletteDetails.Value = new ObservableCollection<PaletteDetailsEntity>
+                                (_palettePartsRepository.GetPaletteDetails(SelectedPalette.Value.PaletteId));
+            }
         }
 
         private void GetBom()
         {
-            Boms.Value = new ObservableCollection<BomPartsEntity>(_bomRepository.GetBomParts(SelectedAssyNumber.Value));
+            if (SelectedAssyNumber.Value != null)
+            {
+                Boms.Value = new ObservableCollection<BomPartsEntity>(_bomRepository.GetBomParts(SelectedAssyNumber.Value));
+            }
         }
     }
 }

@@ -13,14 +13,37 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="10">
-            <Label Content="Assy"/>
-            <ComboBox ItemsSource="{Binding AssyNumbers.Value}" SelectedItem="{Binding SelectedAssyNumber.Value}" Width="100"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="10">
             <Label Content="KIT"/>
             <ComboBox ItemsSource="{Binding Palettes.Value}" SelectedItem="{Binding SelectedPalette.Value}" DisplayMemberPath="PaletteName" Width="100"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" Margin="10">
+            <Label Content="Assy"/>
+            <ComboBox ItemsSource="{Binding AssyNumbers.Value}" SelectedItem="{Binding SelectedAssyNumber.Value}" Width="100"/>
+        </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="1" Margin="10">
+            <ListView ItemsSource="{Binding PaletteDetails.Value}" SelectedItem="{Binding SelectedPaletteDetails.Value}" Height="300">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Paletteid" DisplayMemberBinding="{Binding Paletteid}" Width="100"/>
+                        <GridViewColumn Header="Assy" DisplayMemberBinding="{Binding AssyNumber}" Width="100"/>
+                        <GridViewColumn Header="場所" DisplayMemberBinding="{Binding PlaceKey}" Width="100"/>
+                        <GridViewColumn Header="仮組" DisplayMemberBinding="{Binding SubAssemblyKey}" Width="100"/>
+                        <GridViewColumn Header="部品番号" DisplayMemberBinding="{Binding PartsNumber}" Width="100"/>
+                        <GridViewColumn Header="名称" DisplayMemberBinding="{Binding PartsName}" Width="100"/>
+                        <GridViewColumn Header="数量" DisplayMemberBinding="{Binding PartsQuantity}" Width="50"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{Binding SelectedPaletteDetails.Value.PartsQuantity}"/>
+                <Label Content="{Binding UpdateQuantity.Value}"/>
+                <Button Content="+" Command="{Binding PaletteDetailsPlusCommand}" />
+                <Button Content="-" Command="{Binding PaletteDetailsMinusCommand}" />
+                <Button Content="Update" Command="{Binding PaletteDetailsUpdateCommand}" />
+                <Button Content="Delete" Command="{Binding PaletteDetailsDeleteCommand}" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1" Margin="10">
             <ListView ItemsSource="{Binding Boms.Value}" SelectedItem="{Binding SelectedBom.Value}" Height="300">
                 <ListView.View>
                     <GridView>
@@ -41,25 +64,6 @@
                 <Button Content="Add" Command="{Binding PaletteDetailsAddCommand}" />
             </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="1" Margin="10">
-            <ListView ItemsSource="{Binding PaletteDetails.Value}" SelectedItem="{Binding SelectedPaletteDetails.Value}" Height="300">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Paletteid" DisplayMemberBinding="{Binding Paletteid}" Width="100"/>
-                        <GridViewColumn Header="部品番号" DisplayMemberBinding="{Binding PartsNumber}" Width="100"/>
-                        <GridViewColumn Header="名称" DisplayMemberBinding="{Binding PartsName}" Width="100"/>
-                        <GridViewColumn Header="数量" DisplayMemberBinding="{Binding PartsQuantity}" Width="50"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="{Binding SelectedPaletteDetails.Value.PartsQuantity}"/>
-                <Label Content="{Binding UpdateQuantity.Value}"/>
-                <Button Content="+" Command="{Binding PaletteDetailsPlusCommand}" />
-                <Button Content="-" Command="{Binding PaletteDetailsMinusCommand}" />
-                <Button Content="Update" Command="{Binding PaletteDetailsUpdateCommand}" />
-                <Button Content="Delete" Command="{Binding PaletteDetailsDeleteCommand}" />
-            </StackPanel>
-        </StackPanel>
+
     </Grid>
 </UserControl>
