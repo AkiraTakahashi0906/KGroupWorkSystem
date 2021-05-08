@@ -10,12 +10,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
+using static KGroupWorkSystem.Domain.Entities.PerformanceEntity;
+using static KGroupWorkSystem.Domain.Entities.WorkEntity;
 
 namespace KGroupWorkSystem.ViewModels
 {
     public class WorkerViewModel : BindableBase
     {
         private IWorkOrderRepository _workOrderRepository;
+        private ITimeManagementRepository _timeManagementRepository;
         private IDisposable observableTimer;
         public WorkerViewModel()
         {
@@ -23,6 +26,7 @@ namespace KGroupWorkSystem.ViewModels
             Worker1StartButton = new DelegateCommand(Worker1StartButtonExecute);
             Worker2StartButton = new DelegateCommand(Worker2StartButtonExecute);
             Worker3StartButton = new DelegateCommand(Worker3StartButtonExecute);
+            _timeManagementRepository = new TimeManagementSQLServer();
 
             observableTimer = Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2))
                                        .Subscribe(_ =>
@@ -52,14 +56,17 @@ namespace KGroupWorkSystem.ViewModels
 
         private void Worker1StartButtonExecute()
         {
+            _timeManagementRepository.ActiityChange(ActivityName.PartsBarcodeReading);
             WorkerId.Value = 1;
         }
         private void Worker2StartButtonExecute()
         {
+            _timeManagementRepository.ActiityChange(ActivityName.PartsBarcodeReading);
             WorkerId.Value = 2;
         }
         private void Worker3StartButtonExecute()
         {
+            _timeManagementRepository.ActiityChange(ActivityName.PartsBarcodeReading);
             WorkerId.Value = 3;
         }
     }

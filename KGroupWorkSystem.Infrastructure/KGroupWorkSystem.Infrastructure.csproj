@@ -45,6 +45,7 @@
     <Compile Include="SQLServer\BomSQLServer.cs" />
     <Compile Include="SQLServer\PalettePartsSQLServer.cs" />
     <Compile Include="SQLServer\SQLServerHelper.cs" />
+    <Compile Include="SQLServer\TimeManagementSQLServer.cs" />
     <Compile Include="SQLServer\WorkOrderSQLServer.cs" />
   </ItemGroup>
   <ItemGroup>

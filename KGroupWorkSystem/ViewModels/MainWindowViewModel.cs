@@ -1,4 +1,6 @@
-﻿using KGroupWorkSystem.Views;
+﻿using KGroupWorkSystem.Domain.Repositories;
+using KGroupWorkSystem.Infrastructure.SQLServer;
+using KGroupWorkSystem.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
