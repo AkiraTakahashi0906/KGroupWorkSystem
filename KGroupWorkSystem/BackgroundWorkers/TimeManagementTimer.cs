@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using static KGroupWorkSystem.Domain.Entities.WorkEntity;
 
 namespace KGroupWorkSystem.BackgroundWorkers
@@ -15,17 +16,18 @@ namespace KGroupWorkSystem.BackgroundWorkers
     {
         private static Timer _timer;
         private static bool _isWork = false;
-        private static ITimeManagementRepository _timeManagementRepository 
-            =  new TimeManagementSQLServer();
+        private static ITimeManagementRepository _timeManagementRepository;
+        private static TimeManagementServices _timeRecorder;
 
         static TimeManagementTimer()
         {
             _timer = new Timer(Callback);
+            _timeManagementRepository = new TimeManagementSQLServer();
+            _timeRecorder = new TimeManagementServices(_timeManagementRepository.GetWorks());
         }
 
         internal static void Start()
         {
-            TimeManagementServices.GetInstance().WorkEntitis = _timeManagementRepository.GetWorks();
             _timer.Change(0, 30000);
         }
 
@@ -35,6 +37,7 @@ namespace KGroupWorkSystem.BackgroundWorkers
         }
         private static void Callback(object o)
         {
+            
             if (_isWork)
             {
                 return;
@@ -43,7 +46,12 @@ namespace KGroupWorkSystem.BackgroundWorkers
             try
             {
                 _isWork = true;
-                _timeManagementRepository.ActiityChange(ActivityName.AutoWaitMode);
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    var result = _timeRecorder.ActiityChange(ActivityName.AutoWaitMode);
+                    _timeManagementRepository.ActiityChangeSave(result);
+                    scope.Complete();
+                }
             }
             finally
             {

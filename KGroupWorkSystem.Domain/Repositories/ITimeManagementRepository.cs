@@ -11,7 +11,7 @@ namespace KGroupWorkSystem.Domain.Repositories
 {
     public interface ITimeManagementRepository
     {
-        void ActiityChange(ActivityName activityName);
+        void ActiityChangeSave(PerformanceEntity performance);
         List<WorkEntity> GetWorks();
     }
 }

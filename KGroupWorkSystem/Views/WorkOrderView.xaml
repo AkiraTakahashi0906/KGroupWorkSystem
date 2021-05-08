@@ -6,7 +6,9 @@
     <Grid>
         <StackPanel>
             <Label Content="作業指示作成"/>
+            <Label Content= "{Binding TimeText.Value}"/>
             <Button Content="Start" Width="100" Command="{Binding StartButton}"/>
+            <Button Content="Time" Width="100" Command="{Binding TimeButton}"/>
         </StackPanel>
     </Grid>
 </UserControl>

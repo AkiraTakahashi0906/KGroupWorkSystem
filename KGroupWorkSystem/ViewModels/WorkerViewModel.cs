@@ -56,17 +56,14 @@ namespace KGroupWorkSystem.ViewModels
 
         private void Worker1StartButtonExecute()
         {
-            _timeManagementRepository.ActiityChange(ActivityName.PartsBarcodeReading);
             WorkerId.Value = 1;
         }
         private void Worker2StartButtonExecute()
         {
-            _timeManagementRepository.ActiityChange(ActivityName.PartsBarcodeReading);
             WorkerId.Value = 2;
         }
         private void Worker3StartButtonExecute()
         {
-            _timeManagementRepository.ActiityChange(ActivityName.PartsBarcodeReading);
             WorkerId.Value = 3;
         }
     }

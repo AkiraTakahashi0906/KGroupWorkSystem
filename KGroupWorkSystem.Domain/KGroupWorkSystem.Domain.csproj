@@ -53,6 +53,7 @@
     <Compile Include="Repositories\IWorkOrderRepository.cs" />
     <Compile Include="Repositories\ITimeManagementRepository.cs" />
     <Compile Include="services\TimeManagementServices.cs" />
+    <Compile Include="services\WorkingActivity.cs" />
     <Compile Include="services\WorkActivityService.cs" />
     <Compile Include="StaticValues\WorkingData.cs" />
   </ItemGroup>

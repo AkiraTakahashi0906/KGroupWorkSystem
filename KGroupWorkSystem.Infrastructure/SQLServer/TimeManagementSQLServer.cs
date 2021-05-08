@@ -7,7 +7,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static KGroupWorkSystem.Domain.Entities.PerformanceEntity;
 using static KGroupWorkSystem.Domain.Entities.WorkEntity;
 
 namespace KGroupWorkSystem.Infrastructure.SQLServer
@@ -53,10 +52,8 @@ on section.[work_block_id]=block.[work_block_id]
             return list;
         }
 
-        public void ActiityChange(ActivityName activityName)
+        public void ActiityChangeSave(PerformanceEntity performance)
         {
-            var time = TimeManagementServices.GetInstance();
-            var SaveTime = time.ActiityChange(activityName);
             var parameters = new List<SqlParameter>();
 
                 var sql = @"
@@ -76,9 +73,9 @@ on section.[work_block_id]=block.[work_block_id]
     select SCOPE_IDENTITY() as id
     ";
                 parameters.Clear();
-                parameters.Add(new SqlParameter("@block_name", SaveTime.WorkEntity.WorkBlockName));
-                parameters.Add(new SqlParameter("@section_name", SaveTime.WorkEntity.WorkSectionName));
-                parameters.Add(new SqlParameter("@activity_name", SaveTime.WorkEntity.WorkActivityName));
+                parameters.Add(new SqlParameter("@block_name", performance.WorkEntity.WorkBlockName));
+                parameters.Add(new SqlParameter("@section_name", performance.WorkEntity.WorkSectionName));
+                parameters.Add(new SqlParameter("@activity_name", performance.WorkEntity.WorkActivityName));
                 var id = 0;
                 SQLServerHelper.Query(
                                                     sql,
@@ -124,19 +121,19 @@ on section.[work_block_id]=block.[work_block_id]
         )
     ";
                 parameters.Clear();
-                parameters.Add(new SqlParameter("@start_time", SaveTime.StartTime));
-                parameters.Add(new SqlParameter("@end_time", SaveTime.EndTime));
+                parameters.Add(new SqlParameter("@start_time", performance.StartTime));
+                parameters.Add(new SqlParameter("@end_time", performance.EndTime));
                 parameters.Add(new SqlParameter("@action_id", id));
-                parameters.Add(new SqlParameter("@milliseconds", SaveTime.TimeSpanMs));
-                parameters.Add(new SqlParameter("@seconds", SaveTime.TimeSpanS));
-                parameters.Add(new SqlParameter("@minutes", SaveTime.TimeSpanM));
-                parameters.Add(new SqlParameter("@hours", SaveTime.TimeSpanH));
-                parameters.Add(new SqlParameter("@days", SaveTime.TimeSpanD));
-                parameters.Add(new SqlParameter("@total_milliseconds", SaveTime.TotalTimeMs));
-                parameters.Add(new SqlParameter("@total_seconds", SaveTime.TotalTimeS));
-                parameters.Add(new SqlParameter("@total_minutes", SaveTime.TotalTimeM));
-                parameters.Add(new SqlParameter("@total_hours", SaveTime.TotalTimeH));
-                parameters.Add(new SqlParameter("@total_days", SaveTime.TotalTimeD));
+                parameters.Add(new SqlParameter("@milliseconds", performance.TimeSpanMs));
+                parameters.Add(new SqlParameter("@seconds", performance.TimeSpanS));
+                parameters.Add(new SqlParameter("@minutes", performance.TimeSpanM));
+                parameters.Add(new SqlParameter("@hours", performance.TimeSpanH));
+                parameters.Add(new SqlParameter("@days", performance.TimeSpanD));
+                parameters.Add(new SqlParameter("@total_milliseconds", performance.TotalTimeMs));
+                parameters.Add(new SqlParameter("@total_seconds", performance.TotalTimeS));
+                parameters.Add(new SqlParameter("@total_minutes", performance.TotalTimeM));
+                parameters.Add(new SqlParameter("@total_hours", performance.TotalTimeH));
+                parameters.Add(new SqlParameter("@total_days", performance.TotalTimeD));
                 SQLServerHelper.Execute(sql, parameters.ToArray());
         }
     }

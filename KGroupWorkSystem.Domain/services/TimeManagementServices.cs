@@ -1,41 +1,40 @@
 ﻿using KGroupWorkSystem.Domain.Entities;
+using KGroupWorkSystem.Domain.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static KGroupWorkSystem.Domain.Entities.PerformanceEntity;
 using static KGroupWorkSystem.Domain.Entities.WorkEntity;
 
 namespace KGroupWorkSystem.Domain.services
 {
     public sealed class TimeManagementServices
     {
-        private static TimeManagementServices _singleInstance = new TimeManagementServices();
-        private PerformanceEntity _performance;
-        private DateTime _startTime;
-        private DateTime _endTime;
+        private  PerformanceEntity _performance;
+        private List<WorkEntity> _workEntitis;
 
-        private TimeManagementServices()
+        public TimeManagementServices(List<WorkEntity> workEntitis)
         {
-            _startTime = DateTime.Now;
-            _endTime = DateTime.Now;
-            var work = WorkActivityService.GetWork(WorkEntitis, ActivityName.PartsBarcodeReading);
-            _performance = new PerformanceEntity(_startTime, _endTime, work);
-        }
-        public static TimeManagementServices GetInstance()
-        {
-            return _singleInstance;
+            _workEntitis = workEntitis;
+            SetPerformance();
         }
 
-        public List<WorkEntity> WorkEntitis { get; set; }
+        private void SetPerformance()
+        {
+            var work = WorkActivityService.GetWork(
+                                                                         _workEntitis,
+                                                                         WorkingActivity.GetInstance().ActivityName);
+            _performance = new PerformanceEntity(
+                                                                        WorkingActivity.GetInstance().StartTime,
+                                                                        WorkingActivity.GetInstance().StopTime,
+                                                                        work);
+        }
+
         public PerformanceEntity ActiityChange(ActivityName activityName)
         {
-            _performance.WorkEntity = WorkActivityService.GetWork(WorkEntitis, activityName);
-            _performance.EndTime = DateTime.Now;
-            var tmp = new PerformanceEntity(_performance.StartTime, _performance.EndTime, _performance.WorkEntity);
-            _performance.StartTime = _performance.EndTime;
-            return tmp;
+            WorkingActivity.GetInstance().StopTime = DateTime.Now;
+            SetPerformance();
+            WorkingActivity.GetInstance().StartTime = _performance.EndTime;
+            WorkingActivity.GetInstance().ActivityName= activityName;
+            return _performance;
         }
     }
 }
