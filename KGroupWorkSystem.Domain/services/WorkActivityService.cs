@@ -27,10 +27,5 @@ namespace KGroupWorkSystem.Domain.services
             }
             return tmp;
         }
-
-        public static object GetWork(object workEntitis, object partsBarcodeReading)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

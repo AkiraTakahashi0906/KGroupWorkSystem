@@ -25,6 +25,8 @@ namespace KGroupWorkSystem.Domain.services
         public DateTime StopTime { get; set; }
         public ActivityName ActivityName { get; set; }
         public TimeSpan elapsedTime => DateTime.Now - StartTime;
-        public string DisplayElapsedTime => elapsedTime.TotalSeconds.ToString();
+        public string DisplayElapsedTime => elapsedTime.Hours.ToString().PadLeft(2, '0') + ":" +
+                                                               elapsedTime.Minutes.ToString().PadLeft(2, '0') + ":" +
+                                                               elapsedTime.Seconds.ToString().PadLeft(2, '0');
     }
 }

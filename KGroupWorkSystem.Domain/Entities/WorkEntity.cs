@@ -12,7 +12,9 @@ namespace KGroupWorkSystem.Domain.Entities
         {
             PartsBarcodeReading=1,         //部品バーコード読み取り
             PartsShelving=2,                    //部品棚入れ
-            AutoWaitMode=6,                  //自動待機モード
+            KitRead = 3,                          //KIT読み取り
+            KitOrder = 4,                          //KIT読み取り
+            AutoWaitMode =6,                  //自動待機モード
         }
         public WorkEntity(int workBlock_id,
                                    string workBlockName,

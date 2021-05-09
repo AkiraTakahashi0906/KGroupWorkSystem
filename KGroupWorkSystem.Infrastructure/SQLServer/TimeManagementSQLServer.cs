@@ -63,12 +63,14 @@ on section.[work_block_id]=block.[work_block_id]
          [block_name]
         ,[section_name]
         ,[activity_name]
+        ,[user_id]
         )
     values
         (
          @block_name
         ,@section_name
         ,@activity_name
+        ,@user_id
         )
     select SCOPE_IDENTITY() as id
     ";
@@ -76,7 +78,8 @@ on section.[work_block_id]=block.[work_block_id]
                 parameters.Add(new SqlParameter("@block_name", performance.WorkEntity.WorkBlockName));
                 parameters.Add(new SqlParameter("@section_name", performance.WorkEntity.WorkSectionName));
                 parameters.Add(new SqlParameter("@activity_name", performance.WorkEntity.WorkActivityName));
-                var id = 0;
+                parameters.Add(new SqlParameter("@user_id", performance.User.UserId));
+            var id = 0;
                 SQLServerHelper.Query(
                                                     sql,
                                                     parameters.ToArray(),

@@ -14,7 +14,7 @@ namespace KGroupWorkSystem
         protected override Window CreateShell()
         {
             WorkOrderTimer.Start();
-            TimeManagementTimer.Start();
+            AutoWaitModeChangeTimer.Start();
             return Container.Resolve<MainWindow>();
         }
 

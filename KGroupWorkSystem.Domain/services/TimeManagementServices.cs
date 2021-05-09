@@ -10,10 +10,12 @@ namespace KGroupWorkSystem.Domain.services
     {
         private  PerformanceEntity _performance;
         private List<WorkEntity> _workEntitis;
+        private UserEntity _user;
 
         public TimeManagementServices(List<WorkEntity> workEntitis)
         {
             _workEntitis = workEntitis;
+            _user = new UserEntity(1, "akira");
             SetPerformance();
         }
 
@@ -25,7 +27,8 @@ namespace KGroupWorkSystem.Domain.services
             _performance = new PerformanceEntity(
                                                                         WorkingActivity.GetInstance().StartTime,
                                                                         WorkingActivity.GetInstance().StopTime,
-                                                                        work);
+                                                                        work,
+                                                                        _user);
         }
 
         public PerformanceEntity ActiityChange(ActivityName activityName)

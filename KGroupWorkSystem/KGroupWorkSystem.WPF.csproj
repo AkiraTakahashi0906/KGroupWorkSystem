@@ -57,7 +57,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BackgroundWorkers\TimeManagementTimer.cs" />
+    <Compile Include="BackgroundWorkers\AutoWaitModeChangeTimer.cs" />
+    <Compile Include="BackgroundWorkers\TimeDisplayTimer.cs" />
     <Compile Include="BackgroundWorkers\WorkOrderTimer.cs" />
     <Compile Include="ViewModels\ConductorViewModel.cs" />
     <Compile Include="ViewModels\PalettePartsDetailsViewModel.cs" />

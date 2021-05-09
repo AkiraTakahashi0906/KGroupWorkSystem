@@ -12,14 +12,14 @@ using static KGroupWorkSystem.Domain.Entities.WorkEntity;
 
 namespace KGroupWorkSystem.BackgroundWorkers
 {
-    internal static class TimeManagementTimer
+    internal static class AutoWaitModeChangeTimer
     {
         private static Timer _timer;
         private static bool _isWork = false;
         private static ITimeManagementRepository _timeManagementRepository;
         private static TimeManagementServices _timeRecorder;
 
-        static TimeManagementTimer()
+        static AutoWaitModeChangeTimer()
         {
             _timer = new Timer(Callback);
             _timeManagementRepository = new TimeManagementSQLServer();
@@ -28,7 +28,7 @@ namespace KGroupWorkSystem.BackgroundWorkers
 
         internal static void Start()
         {
-            _timer.Change(0, 30000);
+            _timer.Change(0, 60000);
         }
 
         internal static void Stop()

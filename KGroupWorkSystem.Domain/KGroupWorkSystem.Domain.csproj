@@ -45,6 +45,7 @@
     <Compile Include="Entities\PaletteDetailsEntity.cs" />
     <Compile Include="Entities\PaletteEntity.cs" />
     <Compile Include="Entities\PerformanceEntity.cs" />
+    <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="Entities\WorkEntity.cs" />
     <Compile Include="Entities\WorkingEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

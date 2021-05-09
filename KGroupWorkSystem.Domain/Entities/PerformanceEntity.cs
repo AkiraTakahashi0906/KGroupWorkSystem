@@ -11,15 +11,18 @@ namespace KGroupWorkSystem.Domain.Entities
 
         public PerformanceEntity(DateTime startTime,
                                               DateTime endTime,
-                                              WorkEntity workEntity)
+                                              WorkEntity workEntity,
+                                              UserEntity user)
         {
             StartTime = startTime;
             EndTime = endTime;
             WorkEntity = workEntity;
+            User = user;
         }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public WorkEntity WorkEntity { get; set; }
+        public UserEntity User { get; set; }
         private TimeSpan _timeSpan => EndTime - StartTime;
         public int TimeSpanMs => _timeSpan.Milliseconds;
         public int TimeSpanS  => _timeSpan.Seconds;

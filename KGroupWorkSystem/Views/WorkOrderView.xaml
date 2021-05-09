@@ -7,8 +7,11 @@
         <StackPanel>
             <Label Content="作業指示作成"/>
             <Label Content= "{Binding TimeText.Value}"/>
-            <Button Content="Start" Width="100" Command="{Binding StartButton}"/>
-            <Button Content="Time" Width="100" Command="{Binding TimeButton}"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Start" Width="100" Command="{Binding StartButton}" Margin="5"/>
+                <Button Content="Time" Width="100" Command="{Binding TimeButton}" Margin="5"/>
+                <Button Content="Time2" Width="100" Command="{Binding Time2Button}" Margin="5"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>
