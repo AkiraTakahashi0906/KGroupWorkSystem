@@ -5,6 +5,7 @@ using KGroupWorkSystem.Domain.services;
 using KGroupWorkSystem.Infrastructure.SQLServer;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using Reactive.Bindings;
 using System;
 using System.Threading;
@@ -13,7 +14,7 @@ using static KGroupWorkSystem.Domain.Entities.WorkEntity;
 
 namespace KGroupWorkSystem.ViewModels
 {
-    public class WorkOrderViewModel : BindableBase
+    public class WorkOrderViewModel : BindableBase, IRegionMemberLifetime
     {
         private IWorkOrderRepository _workOrderRepository;
         private ITimeManagementRepository _timeManagementRepository;
@@ -32,11 +33,18 @@ namespace KGroupWorkSystem.ViewModels
             _displayTimer = new TimeDisplayTimer(new TimerCallback(TimeTest));
             _displayTimer.Start();
         }
-        public ReactivePropertySlim<string> TimeText { get; private set; } = new ReactivePropertySlim<string>();
 
+        ~WorkOrderViewModel()
+        {
+            _displayTimer.Stop();
+        }
+
+        public ReactivePropertySlim<string> TimeText { get; private set; } = new ReactivePropertySlim<string>();
         public DelegateCommand StartButton { get; }
         public DelegateCommand TimeButton { get; }
         public DelegateCommand Time2Button { get; }
+
+        public bool KeepAlive => false;
 
         private void Time2ButtonExecute()
         {
